@@ -1,0 +1,46 @@
+camunda.bpm.databbase.schema-update: true
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+  h2:
+    console:
+      enabled: true # Enabling H2 Console
+      path: /h2 # Custom H2 Console URL
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: sa
+    driver-class-name: org.h2.Driver
+  flyway:
+    enabled: false
+    locations: classpath:db/migration/dev
+    check-location: true
+    baseline-version: 0
+    baseline-on-migrate: true
+  jpa:
+    database: default
+    properties:
+      hibernate:
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        jdbc:
+          batch_size: 100
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl:
+          auto: create-only
+        temp:
+            use_jdbc_metadata_defaults: false
+camunda.bpm:
+  admin-user:
+    id: user
+    password: pass
+    firstName: John
+    lastName: Doe
+  filter:
+    create: All tasks
